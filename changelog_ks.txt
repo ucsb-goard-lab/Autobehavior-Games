@@ -1,0 +1,2 @@
+03Nov2020
+Changed to continunous trials. Itll reset itself every night at 02:00
