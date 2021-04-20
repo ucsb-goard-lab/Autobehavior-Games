@@ -25,35 +25,12 @@ end
 rect = [0,0,1,1];
 
 secondarySaveDir = 'C:/Autobehavior Data/';
-% if usingKeyboard
-%     io = Keyboard;
-% else
-%         choice = menu('Which circuit board are you using?','Gen4', 'Gen5','Headfixed');
-%         switch choice
-%             case 1
-%                 io = HardwareIOGen4(port);
-%             case 2
-%                 io = Gen5Rig(port);
-%             case 3
-%                 io = HardwareHeadfixed(port, str2num(rig));
-%                 % headfixed rigs use a triple monitor  setup
-%                 % we can choose to render to only the middle monitor by setting
-%                 % the rect to the middle third of the screen
-%                 rect = [1/3,0,2/3,1];
-%         end
-% end
 
 day = 1; % day 1
 while day < 365 % days
     instrreset; % clear the COM ports, so we can re-connect to the arduino
-    if usingKeyboard
-        io = Keyboard;
-    else
-        io = Gen5Rig(port);
-    end
-    
+    io = Gen5Rig(port);
     %initialize objects
-    % emailer = Emailer('sender','recipients',developerMode); %doesn't send mail if we are in dev mode
     results = Results(mouseID,numTrials,sessionNum,'closedLoopTraining',natBackground);
     results.setSaveDirectory(saveDir, secondarySaveDir);
     renderer = Renderer(screenNum,0.5,rect);%(screenNumber,default background color,rect to render to)
