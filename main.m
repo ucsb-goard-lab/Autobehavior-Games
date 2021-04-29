@@ -47,9 +47,9 @@ end
 emailer = Emailer('sender','recipients',developerMode); %doesn't send mail if we are in dev mode
 results = Results(mouseID,numTrials,sessionNum,'closedLoopTraining',natBackground);
 results.setSaveDirectory(saveDir, secondarySaveDir);
-renderer = Renderer(screenNum,0.5,rect);%(screenNumber,default background color,rect to render to)
+renderer = Renderer(screenNum,0.5,rect);%(screenNumber,default background ciolor,rect to render to)
 % grating = GratedCircle(contrastList); % You can provide a pool of possible opacities for the grated circle
-grating = AnimatedGratedCircle(contrastList, './Img/animated_grating/', 1); % You can provide a pool of possible opacities for the grated circle
+grating = AnimatedGratedCircle(contrastList, './Img/animated_grating/', 2); % You can provide a pool of possible opacities for the grated circle
 greenCirc = TargetRing;
 if natBackground
     background = NaturalBackground('NaturalScene_stacked.png');
