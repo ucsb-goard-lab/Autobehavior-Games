@@ -90,7 +90,19 @@ classdef  Gen5Headfixed < IODevice
             obj.arduino.resetEncoder(obj.encoderPinA);
         end
         function obj = OpenServos(obj)
-             obj.PositionServos(obj.leftServoOpenPos,obj.rightServoOpenPos);
+            % obj.PositionServos(obj.leftServoOpenPos,obj.rightServoOpenPos);
+            obj.SmoothOpenServos();
+        end
+        function obj = SmoothOpenServos(obj)
+            obj.PowerServos(true);
+            smooth = rescale(logspace(1, 2, 5));
+            leftPositions = obj.leftServoClosedPos + (obj.leftServoOpenPos - obj.leftServoClosedPos) * smooth;
+            rightPositions = obj.rightServoClosedPos + (obj.rightServoOpenPos - obj.rightServoClosedPos) * smooth;
+            for ii = 1:5
+                obj.arduino.writeServo(obj.leftServoPin, leftPositions(ii));
+                obj.arduino.writeServo(obj.rightServoPin, rightPositions(ii));
+            end
+            obj.DelayedCall('PowerServos', obj.servoAdjustmentTime, false);
         end
         function obj = OpenSide(obj,side)
             if side<0
