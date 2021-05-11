@@ -32,7 +32,7 @@ classdef  Gen5Headfixed < IODevice
     
     methods (Access = public)
         
-        function obj = Gen5Rig(port)
+        function obj = Gen5Headfixed(port)
             obj.arduino = Arduino(port);
         end
         
