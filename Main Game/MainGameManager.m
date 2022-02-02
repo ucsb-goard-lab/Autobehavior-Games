@@ -24,6 +24,8 @@ classdef MainGameManager < GameObject
         soundMaker
         background
         isContinuous
+
+	isTraining
     end
     methods (Access = public)
         function obj = MainGameManager(gratedCircle,targetCircle,background,controller,ioDevice,soundMaker,results, isContinuous)
@@ -56,9 +58,12 @@ classdef MainGameManager < GameObject
                     end
                 end
                 
-                if obj.ioDevice.ReadIR()
+                if obj.ioDevice.ReadIR() 
                     obj.waitingForIR = false;
                     obj.StartTrial();
+                    if obj.isTraining
+			    obj.Success();
+                    end
                 end
                 return;
             end
@@ -70,7 +75,7 @@ classdef MainGameManager < GameObject
             if abs(hit)
                 obj.Hit(hit);
                 return;
-            end
+	    end
         end
         function obj = Success(obj)
             obj.StopAllDelayedCalls();
@@ -207,6 +212,9 @@ classdef MainGameManager < GameObject
         function obj = SetAllowIncorrect(obj,bool)
             obj.allowIncorrect = bool;
         end
+	    function obj = SetTrainingMode(obj,bool)
+		    obj.isTraining = bool;
+	    end
         function out = GetNumberOfGamesPlayed(obj)
             out = obj.currentTrialNum;
         end

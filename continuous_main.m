@@ -29,7 +29,8 @@ secondarySaveDir = 'C:/Autobehavior Data/';
 day = 1; % day 1
 while day < 365 % days
     instrreset; % clear the COM ports, so we can re-connect to the arduino
-    io = Gen5Rig(port);
+%     io = Gen5Rig(port);
+    io = Keyboard();
     %initialize objects
     results = Results(mouseID,numTrials,sessionNum,'closedLoopTraining',natBackground);
     results.setSaveDirectory(saveDir, secondarySaveDir);
@@ -60,6 +61,7 @@ while day < 365 % days
     
     manager.SetMaxTrials(numTrials);
     manager.SetAllowIncorrect(reward);
+    manager.SetTrainingMode(trainMode);
     
     ge = GameEngine;
     %game engine has built in error handling, but we want to do email error
