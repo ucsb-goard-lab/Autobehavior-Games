@@ -1,14 +1,14 @@
 function [] = requestInput()
-    mouseID = [];rig = [];sessionNum=[];numTrials = [];port = [];screenNum=[];natBackground=[];reward = []; saveDir = 'Z:/Autobehaviour Data';
+    mouseID = [];rig = [];sessionNum=[];numTrials = [];port = [];screenNum=[];natBackground=[];reward = [];trainMode =[];saveDir = 'Z:/Autobehaviour Data';
     if exist('values.mat','file')
         load('values.mat');
     end
-    prompt = {"Mouse ID","Rig" ,"Session Number", "Number of Trials", "Port","Output Monitor Number (zero for single monitor)","Naturalistic Background", "Reward On Incorrect (0 or 1)","Save Directory"};
+    prompt = {"Mouse ID","Rig" ,"Session Number", "Number of Trials", "Port","Output Monitor Number (zero for single monitor)","Naturalistic Background","Reward On Incorrect (0 or 1)","Training Mode (0 or 1)","Save Directory"};
     title = "Settings";
     dims = [1 35];
     
     
-    defInput = {mouseID,rig,sessionNum,numTrials,port,screenNum,natBackground,reward,saveDir};
+    defInput = {mouseID,rig,sessionNum,numTrials,port,screenNum,natBackground,reward,trainMode,saveDir};
     for i = 1:numel(defInput)
         if ~isstring(defInput{i})
             defInput{i} = num2str(defInput{i});
@@ -24,7 +24,8 @@ function [] = requestInput()
     screenNum = str2num(val{6});
     natBackground = str2num(val{7});
     reward = str2num(val{8});
-    saveDir = val{9};
+    trainMode = str2num(val{9});
+    saveDir = val{10};
     saveLocalData;
     evalin('base',"load('values')");
 end
