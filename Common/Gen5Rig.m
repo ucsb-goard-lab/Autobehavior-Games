@@ -63,6 +63,10 @@ classdef  Gen5Rig < IODevice
 		function out = ReadIR(obj)         
 			out = ~obj.arduino.digitalRead(obj.breakBeamPin);
 		end
+		
+		function obj = ManuallyDispenseWater(obj)
+			obj.GiveWater(0.5)
+		end
 
 		function out = ReadLick(obj)
 			val = obj.arduino.analogRead(obj.lickmeterReadPin);
@@ -70,6 +74,7 @@ classdef  Gen5Rig < IODevice
 		end
 
 		function obj = GiveWater(obj,time)
+			disp('give water now')
 			obj.arduino.digitalWrite(obj.solenoidPin,1);
 			if obj.lastWaterTime>0
 				time = time + obj.evaporationConstant*(obj.Game.GetTime() - obj.lastWaterTime);
