@@ -64,10 +64,6 @@ classdef  Gen5Rig < IODevice
 			out = ~obj.arduino.digitalRead(obj.breakBeamPin);
 		end
 		
-		function obj = ManuallyDispenseWater(obj)
-			obj.GiveWater(0.5)
-		end
-
 		function out = ReadLick(obj)
 			val = obj.arduino.analogRead(obj.lickmeterReadPin);
 			out = abs(val-obj.lickNominalVoltage)>obj.lickVoltageDelta;

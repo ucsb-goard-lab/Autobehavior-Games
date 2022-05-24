@@ -51,6 +51,11 @@ classdef MainGameManager < GameObject
                 return;
             end
 
+	    if obj.ioDevice.ManuallyGiveWater()
+		    fprintf("Manually dispensed water\n")
+		    obj.ioDevice.GiveWater(obj.waterGiveTime);
+	    end
+
             if obj.waitingForIR
                 if obj.isContinuous
                     if obj.CheckTime() % for killing a trail at a certain time

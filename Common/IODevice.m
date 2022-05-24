@@ -9,6 +9,9 @@ classdef IODevice < GameObject
         function out = ReadLick(obj)
             out = false;
         end
+	function out = ManuallyGiveWater(obj)
+		out = GetKey('w');
+	end
         function obj = GiveWater(obj,time)
         end
         function [] = CloseServos(obj)
