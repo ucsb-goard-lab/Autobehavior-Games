@@ -70,7 +70,6 @@ classdef  Gen5Rig < IODevice
 		end
 
 		function obj = GiveWater(obj,time)
-			disp('give water now')
 			obj.arduino.digitalWrite(obj.solenoidPin,1);
 			if obj.lastWaterTime>0
 				time = time + obj.evaporationConstant*(obj.Game.GetTime() - obj.lastWaterTime);
