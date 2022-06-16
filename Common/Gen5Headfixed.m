@@ -19,10 +19,10 @@ classdef  Gen5Headfixed < IODevice
         joystickResponseThreshold = 0.2;%ratio of max at which we return a value. this gives the joystick a deadzone
        
         %servo positions in degrees
-        leftServoOpenPos = 100;
-        rightServoOpenPos = 170;
-        leftServoClosedPos = 180;
-        rightServoClosedPos = 90; 
+        leftServoOpenPos = 80;
+        rightServoOpenPos = 45;
+        leftServoClosedPos = 45;
+        rightServoClosedPos = 80; 
     end
     
     properties(Access = protected)
@@ -61,7 +61,8 @@ classdef  Gen5Headfixed < IODevice
          end
          
         function out = ReadIR(obj)         
-               out = ~obj.arduino.digitalRead(obj.breakBeamPin);
+		out = true;
+               % out = ~obj.arduino.digitalRead(obj.breakBeamPin);
         end
 
         function out = ReadLick(obj)

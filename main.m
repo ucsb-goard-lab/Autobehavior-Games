@@ -36,7 +36,7 @@ else
             io = Gen5Rig(port);
         case 3
             io = Gen5Headfixed(port); % we now use a new headfixed set up 
-            % headfixed rigs use a triple monitor  setup
+            % headfixed rigs use a triple monitor  setupj
             % we can choose to render to only the middle monitor by setting
             % the rect to the middle third of the screen
             % rect = [1/3,0,2/3,1];

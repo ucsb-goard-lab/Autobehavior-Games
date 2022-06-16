@@ -29,8 +29,7 @@ secondarySaveDir = 'C:/Autobehavior Data/';
 day = 1; % day 1
 while day < 365 % days
     instrreset; % clear the COM ports, so we can re-connect to the arduino
-%     io = Gen5Rig(port);
-    io = Keyboard();
+    io = Gen5Rig(port);
     %initialize objects
     results = Results(mouseID,numTrials,sessionNum,'closedLoopTraining',natBackground);
     results.setSaveDirectory(saveDir, secondarySaveDir);
