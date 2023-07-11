@@ -43,6 +43,15 @@ classdef  Gen5Rig < IODevice
 			obj.arduino.attachServo(obj.leftServoPin);
 			obj.arduino.attachServo(obj.rightServoPin);
 			obj.CloseServos();  
+
+% awake function ctrl c + ctrl v from hardwareiogen5
+%             obj.arduinoBoard = arduino(obj.port,'uno','libraries',{'servo','rotaryEncoder'});
+%             obj.ConfigurePins();            
+%             obj.encoder = rotaryEncoder(obj.arduinoBoard, obj.encoderPinA,obj.encoderPinB);
+%             
+%             obj.leftServo = servo(obj.arduinoBoard,obj.leftServoPin,'MinPulseDuration',obj.minServoPulse,'MaxPulseDuration',obj.maxServoPulse);
+%             obj.rightServo = servo(obj.arduinoBoard,obj.rightServoPin,'MinPulseDuration',obj.minServoPulse,'MaxPulseDuration',obj.maxServoPulse);
+%              obj.CloseServos();
 		end
 
 		function out = ReadJoystick(obj)
@@ -83,7 +92,7 @@ classdef  Gen5Rig < IODevice
 		end
 
 		function obj = CloseServos(obj)
-			% obj.PositionServos(obj.leftServoClosedPos,obj.rightServoClosedPos);
+% 			obj.PositionServos(obj.leftServoClosedPos,obj.rightServoClosedPos);
 			obj.SmoothCloseServos();
 			obj.DelayedCall('ResetEncoder',obj.servoAdjustmentTime);
 		end
@@ -92,7 +101,7 @@ classdef  Gen5Rig < IODevice
 		end
 
 		function obj = OpenServos(obj)
-			% obj.PositionServos(obj.leftServoOpenPos,obj.rightServoOpenPos);
+% 			obj.PositionServos(obj.leftServoOpenPos,obj.rightServoOpenPos);
 			obj.SmoothOpenServos();
 		end
 
@@ -106,6 +115,7 @@ classdef  Gen5Rig < IODevice
 
 		function obj = SmoothOpenServos(obj)
 			obj.PowerServos(true);
+            %plot 10 points between 10 and 100, rescale to between 0 and 1
 			smooth = rescale(logspace(1, 2, 10));
 			leftPositions = obj.leftServoClosedPos + (obj.leftServoOpenPos - obj.leftServoClosedPos) * smooth;
 			rightPositions = obj.rightServoClosedPos + (obj.rightServoOpenPos - obj.rightServoClosedPos) * smooth;

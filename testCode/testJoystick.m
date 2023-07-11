@@ -1,19 +1,20 @@
 clc
 clear all;
 % requestInput();
-port = 'COM14';
+port = 'com14';
 addpath('Common');
 addpath('PTB-Game-Engine/GameEngine');
 fprintf("connecting...\n");
 io = HardwareIOGen5(port);
 io.Awake();
 fprintf("arduino setup complete\n");
+
+io.OpenServos();
+
 while ~GetKey("ESC")
     clc;
-    if io.ReadLick()
-        fprintf("LICKMETER ACTUATED\n");
-    else
-        fprintf("0\n");
-    end
+    
+    disp(io.ReadJoystick());
+    
     pause(0.1);
 end

@@ -15,7 +15,7 @@ classdef AnimatedGratedCircle < GratedCircle
         end
 
         function img = GenerateImage(obj) 
-            % img = obj.PngToImg('grating.png');
+            img = obj.PngToImg('grating.png'); %uncomment this line
             imgs = dir(strcat(obj.image_bank, '/*.png'));
             for im = 1:length(imgs)
                 img(:, :, :, im) = obj.PngToImg([imgs(im).folder, '/', imgs(im).name]);

@@ -44,19 +44,52 @@ classdef Rig < IODevice
             end
         end
         function obj = CloseServos(obj)
-            obj.PositionServos(obj.leftServoClosedPos,obj.rightServoClosedPos);
+            %obj.PositionServos(obj.leftServoClosedPos,obj.rightServoClosedPos);
+
+            %added smooth close function
+            obj. SmoothCloseServos();
             obj.DelayedCall('ResetEnc',obj.servoAdjustmentTime);
         end
+
         function PrintServoTargets(obj)
             disp(obj.leftServoOpenPos);
             disp(obj.leftServoClosedPos);
             disp(obj.rightServoOpenPos); 
             disp(obj.rightServoClosedPos);
         end
+
         function obj = OpenServos(obj)
             
-             obj.PositionServos(obj.leftServoOpenPos,obj.rightServoOpenPos);
+            %obj.PositionServos(obj.leftServoOpenPos,obj.rightServoOpenPos);
+            %added smooth open function
+            obj.SmoothOpenServos();
         end
+
+        function obj = SmoothOpenServos(obj)
+			obj.PowerServos(true);
+            %plot 10 points between 10 and 100, rescale to between 0 and 1
+			smooth = rescale(logspace(1, 2, 10));
+			leftPositions = obj.leftServoClosedPos + (obj.leftServoOpenPos - obj.leftServoClosedPos) * smooth;
+			rightPositions = obj.rightServoClosedPos + (obj.rightServoOpenPos - obj.rightServoClosedPos) * smooth;
+			for ii = 1:10
+				obj.leftServo.writePosition(leftPositions(ii));
+				obj.rightServo.writePosition(rightPositions(ii));
+			end
+			obj.DelayedCall('PowerServos', obj.servoAdjustmentTime, false);
+        end
+
+        function obj = SmoothCloseServos(obj)
+			obj.PowerServos(true);
+			smooth = rescale(logspace(1, 2, 10));
+			leftPositions = obj.leftServoOpenPos + (obj.leftServoClosedPos - obj.leftServoOpenPos) * smooth;
+			rightPositions = obj.rightServoOpenPos + (obj.rightServoClosedPos - obj.rightServoOpenPos) * smooth;
+			for ii = 1:10
+				obj.leftServo.writePosition(leftPositions(ii));
+				obj.rightServo.writePosition(rightPositions(ii));
+			end
+			obj.DelayedCall('PowerServos', obj.servoAdjustmentTime, false);
+		end
+
         function obj = OpenSide(obj,side)
             if side<0
                 obj.PositionServos(obj.leftServoOpenPos,obj.rightServoClosedPos);

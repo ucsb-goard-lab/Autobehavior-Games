@@ -4,7 +4,7 @@ addpath('Main Game');                      %files used by this game
 addpath('Img');                            %image files
 
 %clear workspace and close com ports
-clearAll;
+% clearAll;
 
 contrastList = 1; %[2.^(0:6), 100] / 100; % Specify the pool of contrasts for the circle
 requestInput;%get rig specific data from user via GUI
@@ -33,7 +33,7 @@ else
         case 1
             io = HardwareIOGen4(port);
         case 2
-            io = Gen5Rig(port);
+            io = HardwareIOGen5(port);
         case 3
             io = Gen5Headfixed(port); % we now use a new headfixed set up 
             % headfixed rigs use a triple monitor  setup

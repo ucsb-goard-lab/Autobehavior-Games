@@ -1,6 +1,9 @@
 clc
 clear all;
-requestInput();
+
+port = 'com14'
+% requestInput();
+
 addpath('Common');
 addpath('PTB-Game-Engine/GameEngine');
 fprintf("connecting...\n");
@@ -15,6 +18,6 @@ while ~GetKey('ESC')
         catch
         end
     else
-        io.CssssssloseSolenoid();
+        io.CloseSolenoid();
     end
 end

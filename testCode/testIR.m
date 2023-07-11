@@ -1,17 +1,18 @@
 clc
 clear all;
 % requestInput();
-port = 'COM14';
+port = 'com14';
 addpath('Common');
 addpath('PTB-Game-Engine/GameEngine');
 fprintf("connecting...\n");
 io = HardwareIOGen5(port);
+% io = Gen5Rig(port);
 io.Awake();
 fprintf("arduino setup complete\n");
 while ~GetKey("ESC")
     clc;
-    if io.ReadLick()
-        fprintf("LICKMETER ACTUATED\n");
+    if io.ReadIR()
+        fprintf("IR Sensor Obstructed\n");
     else
         fprintf("0\n");
     end

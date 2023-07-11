@@ -5,7 +5,7 @@ classdef Arduino < handle
         terminator = 254;
         errorByte = 253;
         messageBufferSize = 512;
-        connectionTimeOut = 2;
+        connectionTimeOut = 2; 
         serialTimeOut = 1;
         maxAnalogRead = 5;%volts
         maxAnalogWrite = 5;%volts
@@ -25,7 +25,7 @@ classdef Arduino < handle
         end
         function obj = connect(obj)
             obj.clearPort();
-            obj.comPort = serial(obj.portName);
+            obj.comPort = serial(obj.portName); 
             obj.comPort.BaudRate = obj.baudRate;
             fopen(obj.comPort);
             flushoutput(obj.comPort);
@@ -104,7 +104,7 @@ classdef Arduino < handle
         
         
         function waitForConnection(obj)  
-            numReads = 10;%successful messages sent before we determine that we are definitely connected
+            numReads = 10;%successful messages sent before we determine that we are definitely connectedReadLick
             numSlowReads = 2;%first this many reads will be given some extra time
             for i = 1:numReads
                 connected = obj.checkConnection(i<=numSlowReads);
@@ -113,6 +113,7 @@ classdef Arduino < handle
                	connected = obj.checkConnection();
             end
         end
+
         function out = checkConnection(obj,firstTime)
             if nargin<2
                 firstTime = true;
@@ -125,6 +126,7 @@ classdef Arduino < handle
             end
             out = prod(msg == 0);
         end
+        
         function out = getDeviceInfo(obj)
             obj.sendMessage([253,0]);
             out = obj.getMessageAsText();

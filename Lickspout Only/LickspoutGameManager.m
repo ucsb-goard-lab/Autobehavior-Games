@@ -16,8 +16,8 @@ classdef LickspoutGameManager < GameObject
             obj.wasLicking = true;
         end
         function obj = Update(obj)
-            if obj.ioDevice.ReadLick()
-                if ~obj.wasLicking
+            if obj.ioDevice.ReadLick() %if spout and tube are shorted
+                if ~obj.wasLicking %and mouse was not licking before
                     clc;
                     disp('LICK DETECTED');
                 end
