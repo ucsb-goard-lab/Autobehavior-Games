@@ -42,6 +42,7 @@ classdef Results < handle
             %empty buffers for data logging
             obj.naturalisticBackground = naturalisticBackground;
             obj.startTimes = zeros(1,trials);
+            obj.endTimes = zeros(1,trials);
             obj.stimSequence = zeros(1,trials);
             obj.lastSavedFrame = 0;
             obj.contrastSequence = zeros(1,trials);

@@ -1,7 +1,7 @@
 clc
 clear all;
 % requestInput();
-port = 'com14';
+port = 'com16';
 addpath('Common');
 addpath('PTB-Game-Engine/GameEngine');
 fprintf("connecting...\n");
