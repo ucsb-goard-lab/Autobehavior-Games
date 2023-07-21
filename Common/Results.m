@@ -33,6 +33,7 @@ classdef Results < handle
         lastSavedFrame
         saveDir2
         globalStart
+        globalSecStart
         naturalisticBackground
     end
     
@@ -91,6 +92,7 @@ classdef Results < handle
             if obj.currentTrial<=1
                 c = clock;
                 obj.globalStart = [c(3),c(4)];
+                obj.globalSecStart = GetSecs();
             end
             trialNum = obj.currentTrial;
             obj.stimSequence(trialNum) = stimulusPosition;
