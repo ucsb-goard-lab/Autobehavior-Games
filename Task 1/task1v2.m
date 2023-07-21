@@ -19,8 +19,10 @@ results.setSaveDirectory(saveDir);
 
 while ~GetKey("ESC") && numDispenses < numTrials
     clc;
-    results.StartTrial(0,0,GetSecs());
-
+    if results.currentTrial == numDispenses
+        results.StartTrial(0,0,GetSecs());
+    end
+    
     if io.ReadIR()
 
         %give water
