@@ -40,7 +40,7 @@ while ~GetKey("ESC") && numDispenses < numTrials
                 fprintf("LICKMETER ACTUATED\n");
                 numLicks = numLicks + 1;
                 results.LogLick(GetSecs());
-                results.EndTrial(GetSecs());
+                
                 break
             else
                 fprintf("0\n");
@@ -50,7 +50,7 @@ while ~GetKey("ESC") && numDispenses < numTrials
         while io.ReadIR()
         end
 
-        
+        results.EndTrial(GetSecs());
        
     end
 

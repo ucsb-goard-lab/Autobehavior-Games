@@ -25,6 +25,7 @@ classdef Results < handle
         responseCorrect
         responded
         firstLickTimes
+        lickResponses
         numTrials
         trialType
         currentTrial
@@ -53,6 +54,7 @@ classdef Results < handle
             obj.responseCorrect = zeros(1,trials);
             obj.responded = zeros(1,trials);
             obj.firstLickTimes = [];
+            obj.lickResponses = zeros(1,trials);
             obj.numTrials = trials;
             obj.trialType = type;
             obj.mouseID = id;
@@ -129,6 +131,7 @@ classdef Results < handle
         end
         function [] = LogLick(obj, time)
             obj.firstLickTimes(obj.currentTrial) = time;
+            obj.lickResponses(obj.currentTrial) = 1;%true
         end
         function [] = LogJoy(obj,reading,side,time)
             obj.joystickResponses(obj.currentTrial) = side;
