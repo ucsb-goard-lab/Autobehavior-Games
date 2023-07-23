@@ -35,7 +35,7 @@ classdef HardwareIOGen5 < Rig
              
              
         end
-         function out = UnsafeReadJoystick(obj)
+        function out = UnsafeReadJoystick(obj)
             out = readCount(obj.encoder)/obj.maxJoystickValue;
             if abs(out)>1
                 out = sign(out);
@@ -45,8 +45,8 @@ classdef HardwareIOGen5 < Rig
             if abs(out)<obj.joystickResponseThreshold
                 out = 0;
                 return;
-            end 
-         end
+            end
+        end
         function out = ReadIR(obj)         
                out = obj.Try('UnsafeReadIR');
         end

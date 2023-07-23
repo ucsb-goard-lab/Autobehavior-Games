@@ -1,7 +1,7 @@
 classdef Rig < IODevice
     properties(Constant)
         joystickResponseThreshold = 0.2;
-        maxJoystickValue = 100
+        maxJoystickValue = 100;
         servoAdjustmentTime = 0.5;
         evaporationConstant = .15/3600;
         readAttemptsBeforeFailure = 100;
@@ -17,12 +17,16 @@ classdef Rig < IODevice
         arduinoBoard
         leftServo
         rightServo
-        encoder
+        
         digitalOutputPins
         digitalInputPins
         analogInputPins
         pullupPins
         lastWaterTime
+     end
+
+     properties(Access = public)
+         encoder
      end
         methods (Access = public)
         function out = ReadJoystick(obj)

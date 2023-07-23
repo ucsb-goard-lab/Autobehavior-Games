@@ -15,7 +15,7 @@ io.CloseServos();
 while ~GetKey("ESC")
     clc;
     
-    disp(io.ReadJoystick());
+    disp(readCount(io.encoder));
     
     pause(0.1);
 end

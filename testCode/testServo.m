@@ -21,12 +21,12 @@ while true
 
         io.OpenServos();
         clc;
-        disp("servos open");
+        disp("locked");
     else
 
         io.CloseServos();
         clc;
-        disp("servos closed");
+        disp("unlocked");
 
     end
     io.PrintServoTargets();

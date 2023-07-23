@@ -62,7 +62,6 @@ while ~GetKey("ESC") && numDispenses < numTrials
 end
 results.save();
 clc;
-format shortg;
 fprintf('NumDispenses: %f\n', fix(numDispenses));
 fprintf('Num Licks: %f\n', fix(numLicks));
 fprintf('Mouse licked %f %% of the time.\n', fix(numLicks / numDispenses * 10000) / 100);
