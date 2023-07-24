@@ -23,10 +23,11 @@ results = Results(mouseID,numTrials,sessionNum,'task2Training',natBackground);
 results.setSaveDirectory(saveDir);
 
 io.PowerServos(true)
-io.CloseServos();
-% io.PowerServos(false);
+io.OpenServos();
+pause(2);
+io.PowerServos(false);
 
-while ~GetKey('ESC') &&numEnters < numTrials
+while ~GetKey('ESC') && numEnters < numTrials
     clc;
 
     if results.currentTrial == numDispenses
@@ -44,21 +45,23 @@ while ~GetKey('ESC') &&numEnters < numTrials
         posCurrent = posOnEntry;
 
         %if the mouse turns the joystick past the threshold, give water
-        while io.ReadIR()
+        while ~GetKey('ESC') && io.ReadIR()
             clc;
             posCurrentRaw = readCount(io.encoder);
             posCurrent = io.ReadJoystick();
-            disp(num2str(abs(posCurrent - posOnEntry)));
+            fprintf('posCurrentRaw = %f\n',posCurrentRaw);
+            fprintf('posOnEntryRaw = %f\n',posOnEntryRaw);
+            disp(posCurrentRaw - posOnEntryRaw);
 
             %if the mouse turns the joystick past the threshold, give water
-            if abs(posCurrentRaw - posOnEntryRaw) > turnThreshold
+            if abs(posCurrentRaw - posOnEntryRaw) >= 100
                 %give water
-    %             try
-    %             io.GiveWater(1);
-    %             catch
-    %             end
-    %             pause(0.3);
-    %             io.CloseSolenoid();
+                try
+                io.GiveWater(1);
+                catch
+                end
+                pause(0.3);
+                io.CloseSolenoid();
                 clc;
                 numDispenses = numDispenses + 1;
                 fprintf("Water dispensed");
@@ -73,7 +76,7 @@ while ~GetKey('ESC') &&numEnters < numTrials
         end
 
         %check if the mouse licks
-        while io.ReadIR()
+        while ~GetKey('ESC') && io.ReadIR()
             clc;
             if io.ReadLick()
                 fprintf("LICKMETER ACTUATED\n");
@@ -87,10 +90,19 @@ while ~GetKey('ESC') &&numEnters < numTrials
         end
 
         %last while loop to wait for mouse to leave
-        while io.ReadIR()
+        while ~GetKey('ESC') && io.ReadIR()
         end
-
+        
         results.EndTrial(GetSecs());
+        
+        io.PowerServos(true)
+        io.CloseServos();
+        pause(2);
+        io.OpenServos()
+        pause(2);
+        io.PowerServos(false);
+
+        
 
     end
 

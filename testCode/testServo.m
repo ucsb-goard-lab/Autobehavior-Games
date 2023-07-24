@@ -2,8 +2,6 @@ clc
 clear all;
 
 requestInput;
-% port = 'com16'
-
 addpath('Common');
 addpath('PTB-Game-Engine/GameEngine');
 fprintf("connecting...\n");
@@ -13,25 +11,25 @@ fprintf("arduino setup complete\n");
 io.PowerServos(true);
 open = false;
 while true
-%     
-% io.PowerServos(true);
+    
+    io.PowerServos(true);
     in = input("Press enter to make the servos open or close. CTRL-C to exit.");
     open = ~open;
     if open
 
         io.OpenServos();
         clc;
-        disp("locked");
+        disp("unlocked");
     else
 
         io.CloseServos();
         clc;
-        disp("unlocked");
+        disp("locked");
 
     end
     io.PrintServoTargets();
     pause(0.5);
-%     io.PowerServos(false);
+    io.PowerServos(false);
 
 
 end
