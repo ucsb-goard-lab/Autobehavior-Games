@@ -22,6 +22,8 @@ turnThreshold = 120; %about a quarter turn, full range is ~480
 results = Results(mouseID,numTrials,sessionNum,'task2Training',natBackground);
 results.setSaveDirectory(saveDir);
 
+soundMaker = SoundMaker();
+
 io.PowerServos(true)
 io.OpenServos();
 pause(2);
@@ -43,6 +45,7 @@ while ~GetKey('ESC') && numEnters < numTrials
         posCurrentRaw = posOnEntryRaw;
         posOnEntry = io.ReadJoystick();
         posCurrent = posOnEntry;
+        waterDispenseTime = 0.2
 
         %if the mouse turns the joystick past the threshold, give water
         while ~GetKey('ESC') && io.ReadIR()
@@ -57,11 +60,14 @@ while ~GetKey('ESC') && numEnters < numTrials
             if abs(posCurrentRaw - posOnEntryRaw) >= 100
                 %give water
                 try
-                io.GiveWater(1);
+                    io.GiveWater(1);
                 catch
                 end
-                pause(0.3);
+                pause(waterDispenseTime);
                 io.CloseSolenoid();
+                
+                soundMaker.RewardNoise();
+                
                 clc;
                 numDispenses = numDispenses + 1;
                 fprintf("Water dispensed");

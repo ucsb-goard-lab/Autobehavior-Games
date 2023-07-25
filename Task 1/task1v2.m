@@ -17,6 +17,8 @@ waterDispenseTime = 0.2;
 results = Results(mouseID,numTrials,sessionNum,'task1Training',natBackground);
 results.setSaveDirectory(saveDir);
 
+soundMaker = SoundMaker();
+
 while ~GetKey("ESC") && numDispenses < numTrials
     clc;
     if results.currentTrial == numDispenses
@@ -32,6 +34,8 @@ while ~GetKey("ESC") && numDispenses < numTrials
         end
         pause(waterDispenseTime);
         io.CloseSolenoid();
+        
+        soundMaker.RewardNoise();
 
         numDispenses = numDispenses + 1;
         fprintf(num2str(numDispenses));
