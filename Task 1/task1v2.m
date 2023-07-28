@@ -19,7 +19,7 @@ results.setSaveDirectory(saveDir);
 
 soundMaker = SoundMaker();
 
-while ~GetKey("ESC") && numDispenses < numTrials
+while numDispenses < numTrials
     clc;
     if results.currentTrial == numDispenses
         results.StartTrial(0,0,GetSecs());
@@ -62,9 +62,11 @@ while ~GetKey("ESC") && numDispenses < numTrials
 
     fprintf(['NumDispenses: ' num2str(numDispenses) '\n']);
     fprintf(['Num Licks: ' num2str(numLicks) '\n']);
+    results.save();
     pause(0.1);
+
 end
-results.save();
+
 clc;
 fprintf('NumDispenses: %f\n', fix(numDispenses));
 fprintf('Num Licks: %f\n', fix(numLicks));

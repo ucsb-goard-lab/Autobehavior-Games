@@ -29,7 +29,7 @@ io.OpenServos();
 pause(2);
 io.PowerServos(false);
 
-while ~GetKey('ESC') && numEnters < numTrials
+while numEnters < numTrials
     clc;
 
     if results.currentTrial == numDispenses
@@ -115,11 +115,11 @@ while ~GetKey('ESC') && numEnters < numTrials
     fprintf(['Num Enters: ' num2str(numEnters) '\n']);
     fprintf(['NumDispenses: ' num2str(numDispenses) '\n']);
     fprintf(['Num Licks: ' num2str(numLicks) '\n']);
+    results.save();
     pause(0.1);
 
 end
 
-results.save();
 clc;
 fprintf('NumDispenses: %f\n', fix(numDispenses));
 fprintf('Num Licks: %f\n', fix(numLicks));
