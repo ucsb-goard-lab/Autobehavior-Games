@@ -1,8 +1,8 @@
 clc
 clear all;
 
-% port = 'com14'
-requestInput();
+port = 'com5'
+% requestInput();
 
 addpath('Common');
 addpath('PTB-Game-Engine/GameEngine');

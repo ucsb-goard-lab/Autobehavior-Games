@@ -19,7 +19,7 @@ results.setSaveDirectory(saveDir);
 
 soundMaker = SoundMaker();
 
-while numDispenses < numTrials
+while ~GetKey("ESC") && numDispenses < numTrials
     clc;
     if results.currentTrial == numDispenses
         results.StartTrial(0,0,GetSecs());
