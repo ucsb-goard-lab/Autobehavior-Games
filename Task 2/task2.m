@@ -61,6 +61,7 @@ while numEnters  < numTrials && ~GetKey("ESC")
                 %give water
                 try
                     io.GiveWater(1);
+                    results.LogJoystickManipulation(GetSec());
                 catch
                 end
                 pause(waterDispenseTime);

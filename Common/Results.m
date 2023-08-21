@@ -19,6 +19,7 @@ classdef Results < handle
         contrastSequence
         contrastOptions
         stimSequence
+        joystickManipulated
         joystickResponses
         joystickResponseTimes
         joystickCounts
@@ -48,6 +49,7 @@ classdef Results < handle
             obj.stimSequence = zeros(1,trials);
             obj.lastSavedFrame = 0;
             obj.contrastSequence = zeros(1,trials);
+            obj.joystickManipulated = zeros(1,trials);
             obj.joystickResponses = zeros(1,trials);
             obj.joystickResponseTimes = -1*ones(1,trials);%-1 is used as a null value
             obj.joystickCounts = zeros(1,trials);
@@ -124,10 +126,14 @@ classdef Results < handle
         function [] = LogSuccess(obj, time)
             if ~obj.responded(obj.currentTrial)
                 obj.responseCorrect(obj.currentTrial) = 1;
+                obj.joystickManipulated = 1;
                 obj.joystickResponses(obj.currentTrial) = -obj.stimSequence(obj.currentTrial);
                 obj.responded(obj.currentTrial) = 1;%true
             end
             obj.joystickResponseTimes(obj.currentTrial) = time-obj.startTimes(obj.currentTrial);
+        end
+        function [] = LogJoystickManipulation(obj, time)
+            obj.joystickManipulated(obj.currentTrial) = 1;
         end
         function [] = LogLick(obj, time)
             obj.firstLickTimes(obj.currentTrial) = time;
