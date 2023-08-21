@@ -61,7 +61,6 @@ while numEnters  < numTrials && ~GetKey("ESC")
                 %give water
                 try
                     io.GiveWater(1);
-                    results.LogJoystickManipulation(GetSec());
                 catch
                 end
                 pause(waterDispenseTime);
@@ -70,6 +69,8 @@ while numEnters  < numTrials && ~GetKey("ESC")
                 soundMaker.RewardNoise();
                 
                 clc;
+                results.LogJoystickManipulation(GetSecs());
+
                 numDispenses = numDispenses + 1;
                 fprintf("Water dispensed");
 
@@ -125,4 +126,4 @@ clc;
 fprintf('NumEnters: %f\n', fix(numEnters));
 fprintf('NumDispenses: %f\n', fix(numDispenses));
 fprintf('Num Licks: %f\n', fix(numLicks));
-fprintf('Mouse licked %f %% of the time.\n', fix(numEnters / numDispenses * 10000) / 100);
+fprintf('Mouse was rewarded %f %% of the time.\n', fix( numDispenses / numEnters * 10000) / 100);

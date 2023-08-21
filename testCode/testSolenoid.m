@@ -1,9 +1,8 @@
-clc
+clc;
 clear all;
 
-port = 'com5'
 % requestInput();
-
+port = 'com3';
 addpath('Common');
 addpath('PTB-Game-Engine/GameEngine');
 fprintf("connecting...\n");
@@ -12,7 +11,7 @@ io.Awake();
 fprintf("arduino setup complete\n");
 
 while ~GetKey('ESC')
-    if GetKey('s')
+    if GetKey("s")
         try
         io.GiveWater(1);
         catch
