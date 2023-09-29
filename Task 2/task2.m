@@ -45,7 +45,7 @@ while numEnters  < numTrials && ~GetKey("ESC")
         posCurrentRaw = posOnEntryRaw;
         posOnEntry = io.ReadJoystick();
         posCurrent = posOnEntry;
-        waterDispenseTime = 0.2
+        waterDispenseTime = 0.2;
 
         %if the mouse turns the joystick past the threshold, give water
         while ~GetKey('ESC') && io.ReadIR()
@@ -57,7 +57,7 @@ while numEnters  < numTrials && ~GetKey("ESC")
             disp(posCurrentRaw - posOnEntryRaw);
 
             %if the mouse turns the joystick past the threshold, give water
-            if abs(posCurrentRaw - posOnEntryRaw) >= 50
+            if abs(posCurrentRaw - posOnEntryRaw) >= 80
                 %give water
                 try
                     io.GiveWater(1);
@@ -84,7 +84,7 @@ while numEnters  < numTrials && ~GetKey("ESC")
         end
 
         %check if the mouse licks
-        while io.ReadIR()
+        while io.ReadIR() && io.GiveWater(1)
             clc;
             if io.ReadLick()
                 fprintf("LICKMETER ACTUATED\n");
@@ -124,6 +124,5 @@ end
 
 clc;
 fprintf('NumEnters: %f\n', fix(numEnters));
-fprintf('NumDispenses: %f\n', fix(numDispenses));
 fprintf('Num Licks: %f\n', fix(numLicks));
-fprintf('Mouse was rewarded %f %% of the time.\n', fix( numDispenses / numEnters * 10000) / 100);
+fprintf('Mouse licked %f %% of the time.\n', fix( numLicks / numEnters * 10000) / 100);
